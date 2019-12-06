@@ -1,0 +1,30 @@
+{
+  "name": "pv3",
+  "version": "0.0.1",
+  "scripts": {
+    "lint": "eslint src/",
+    "test-unit": "mocha --opts ./test/mocha-unit.opts",
+    "test": "npm run test-unit",
+    "prepush": "npm run test && npm run lint"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "node ./node_modules/fit-commit-js/lib/hook.js .git/COMMIT_EDITMSG",
+      "pre-push": "npm run prepush"
+    }
+  },
+  "dependencies": {
+    "command-line-args": "^5.1.1",
+    "cucumber": "^6.0.5",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "@mft/eslint-config-momentumft": "^4.0.0",
+    "chai": "^4.2.0",
+    "eslint": "^6.7.2",
+    "fit-commit-js": "^0.3.2",
+    "husky": "^3.1.0",
+    "mocha": "^6.2.2",
+    "prettier": "^1.19.1"
+  }
+}

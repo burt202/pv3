@@ -1,0 +1,4 @@
+--reporter dot
+--recursive
+--timeout 4000
+--colors
