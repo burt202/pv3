@@ -12,7 +12,8 @@ node src/cli.js --tags "@1 or @2"
 node src/cli.js --tags "@2 and @3"
 node src/cli.js --tags "@1 and not @2"
 node src/cli.js --tags "(@1 or @2) and @3"
-node src/cli.js --configPath "test/pv3.json"
+node src/cli.js --configPath "test/pv3/pv3.json"
+node src/cli.js --configPath "test/pv3/pv3.json" --verbose
 ```
 
 ### Config File
@@ -20,12 +21,12 @@ node src/cli.js --configPath "test/pv3.json"
 ```
 {
   "basePath": "test/ui",
-  "tags": "@2 and @3"
+  "tags": "@2 and @3",
+  "verbose": true
 }
 ```
 
 ## Todo
 
-verbose mode
 typescript
 output formatting
