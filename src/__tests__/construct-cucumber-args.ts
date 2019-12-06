@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 
-const {expect} = require("chai")
-const constructCucumberArgs = require("../construct-cucumber-args")
+import {expect} from "chai"
+import constructCucumberArgs from "../construct-cucumber-args"
 
 describe("constructCucumberArgs", () => {
   context("when no config file is present", () => {

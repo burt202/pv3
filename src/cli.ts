@@ -1,13 +1,15 @@
-const fs = require("fs")
-const path = require("path")
+import * as fs from "fs"
+import * as path from "path"
 
-const Cucumber = require("cucumber")
-const commandLineArgs = require("command-line-args")
+import * as Cucumber from "cucumber"
+import * as commandLineArgs from "command-line-args"
+import {CommandLineOptions} from "command-line-args"
 
-const constructCucumberArgs = require("./construct-cucumber-args")
-const {projectName} = require("./constants")
+import {Config} from "./types"
+import constructCucumberArgs from "./construct-cucumber-args"
+import {projectName} from "./constants"
 
-function getConfigPath(args) {
+function getConfigPath(args: CommandLineOptions): string | null {
   if (args.configPath && fs.existsSync(args.configPath)) return args.configPath
 
   const defaultPath = path.join(process.cwd(), `/${projectName}.json`)
@@ -16,7 +18,13 @@ function getConfigPath(args) {
   return null
 }
 
-function getConfig(args) {
+function isVerbose(args: CommandLineOptions, config?: Config): boolean {
+  if (args.verbose) return args.verbose && args.verbose !== "false"
+  if (!config) return false
+  return !!config.verbose
+}
+
+function getConfig(args: CommandLineOptions): Config | null {
   const path = getConfigPath(args)
 
   if (!path) {
@@ -41,11 +49,6 @@ function getConfig(args) {
   }
 }
 
-function isVerbose(args, config = {}) {
-  if (args.verbose) return args.verbose && args.verbose !== "false"
-  return !!config.verbose
-}
-
 const optionDefinitions = [
   {name: "tags", type: String},
   {name: "feature", type: String},
@@ -59,13 +62,14 @@ const cucumberArgs = process.argv
   .slice(0, 2)
   .concat(constructCucumberArgs(parsedArgs, getConfig(parsedArgs)))
 
+// @ts-ignore
 new Cucumber.Cli({
   argv: cucumberArgs,
   cwd: process.cwd(),
   stdout: process.stdout,
 })
   .run()
-  .then(success => {
+  .then((success: any) => {
     console.log("success", success)
     process.exit(success ? 0 : 1)
   })

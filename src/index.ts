@@ -1,6 +1,6 @@
-const Cucumber = require("cucumber")
+import * as Cucumber from "cucumber"
 
-module.exports = {
+export default {
   Given: Cucumber.Given,
   When: Cucumber.When,
   Then: Cucumber.Then,
